@@ -1357,11 +1357,11 @@ exports.queries = {
     expected.mlt.boost = 1.2;
     doTest();
 
-    mltQuery.minShouldMatch(3);
+    mltQuery.minimumShouldMatch(3);
     expected.mlt.minimum_should_match = 3;
     doTest();
 
-    mltQuery.minShouldMatch('50%');
+    mltQuery.minimumShouldMatch('50%');
     expected.mlt.minimum_should_match = '50%';
     doTest();
 

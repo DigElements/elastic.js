@@ -12376,7 +12376,7 @@
             @param {Integer|String} min A number or string following the 'minimum should match' elasticsearch syntax.
             @returns {Object} returns <code>this</code> so that calls can be chained.
             */
-      minShouldMatch: function (min) {
+      minimumShouldMatch: function (min) {
         if (min == null) {
           return query.mlt.minimum_should_match;
         }
