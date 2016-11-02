@@ -1213,7 +1213,7 @@ exports.queries = {
     test.done();
   },
   MoreLikeThisQuery: function (test) {
-    test.expect(22);
+    test.expect(30);
 
     var mltQuery = ejs.MoreLikeThisQuery(['f', 'f2'], 'like text'),
       expected,
@@ -1249,8 +1249,64 @@ exports.queries = {
     expected.mlt.fields = ['f3', 'f4'];
     doTest();
 
+    mltQuery.like('Once upon a time');
+    expected.mlt.like = 'Once upon a time';
+    doTest();
+
+    mltQuery.like([{
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '1'
+    }, {
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '2',
+    },
+    'more text'
+    ]);
+    expected.mlt.like = [{
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '1'
+    }, {
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '2',
+    },
+    'more text'
+    ];
+    doTest();
+
+    mltQuery.unlike('cake crumble tree');
+    expected.mlt.unlike = 'cake crumble tree';
+    doTest();
+
     mltQuery.likeText('like text 2');
     expected.mlt.like_text = 'like text 2';
+    doTest();
+
+    mltQuery.ids(['1', '2']);
+    expected.mlt.ids = ['1', '2'];
+    doTest();
+
+    mltQuery.docs([{
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '1'
+    }, {
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '2',
+    }]);
+    expected.mlt.docs = [{
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '1'
+    }, {
+      _index: 'imdb',
+      _type: 'movies',
+      _id: '2',
+    }];
     doTest();
 
     mltQuery.percentTermsToMatch(0.7);
@@ -1299,6 +1355,18 @@ exports.queries = {
 
     mltQuery.boost(1.2);
     expected.mlt.boost = 1.2;
+    doTest();
+
+    mltQuery.minShouldMatch(3);
+    expected.mlt.minimum_should_match = 3;
+    doTest();
+
+    mltQuery.minShouldMatch('50%');
+    expected.mlt.minimum_should_match = '50%';
+    doTest();
+
+    mltQuery.include(true);
+    expected.mlt.include = true;
     doTest();
 
     test.strictEqual(mltQuery._type(), 'query');

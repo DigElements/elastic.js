@@ -61,6 +61,38 @@
       },
   
       /**
+            The text, object, or array to find documents like
+
+            @member ejs.MoreLikeThisQuery
+            @param {String|Object|Object[]} input A text string, object, or array of objects.
+            @returns {Object} returns <code>this</code> so that calls can be chained.
+            */
+      like: function (input) {
+        if (input == null) {
+          return query.mlt.like;
+        }
+
+        query.mlt.like = input;
+        return this;
+      },
+
+      /**
+            The text, object, or array to find documents unlike
+
+            @member ejs.MoreLikeThisQuery
+            @param {String|Object|Object[]} input A text string, object, or array of objects.
+            @returns {Object} returns <code>this</code> so that calls can be chained.
+            */
+      unlike: function (input) {
+        if (input == null) {
+          return query.mlt.unlike;
+        }
+
+        query.mlt.unlike = input;
+        return this;
+      },
+
+      /**
             The text to find documents like
 
             @member ejs.MoreLikeThisQuery
@@ -73,6 +105,38 @@
         }
   
         query.mlt.like_text = txt;
+        return this;
+      },
+
+      /**
+            The list of document ids
+
+            @member ejs.MoreLikeThisQuery
+            @param {String[]} ids A list of document ids
+            @returns {Object} returns <code>this</code> so that calls can be chained.
+            */
+      ids: function (ids) {
+        if (ids == null) {
+          return query.mlt.ids;
+        }
+
+        query.mlt.ids = ids;
+        return this;
+      },
+
+      /**
+            The list of documents
+
+            @member ejs.MoreLikeThisQuery
+            @param {Object[]} docs A list of documents
+            @returns {Object} returns <code>this</code> so that calls can be chained.
+            */
+      docs: function (docs) {
+        if (docs == null) {
+          return query.mlt.docs;
+        }
+
+        query.mlt.docs = docs;
         return this;
       },
 
@@ -232,7 +296,24 @@
         query.mlt.analyzer = analyzerName;
         return this;
       },
-    
+
+      /**
+            The number or percentage of terms that must match.
+            Defaults to "30%".
+
+            @member ejs.MoreLikeThisQuery
+            @param {Integer|String} min A number or string following the 'minimum should match' elasticsearch syntax.
+            @returns {Object} returns <code>this</code> so that calls can be chained.
+            */
+      minShouldMatch: function (min) {
+        if (min == null) {
+          return query.mlt.minimum_should_match;
+        }
+
+        query.mlt.minimum_should_match = min;
+        return this;
+      },
+
       /**
             Sets the boost factor to use when boosting terms. 
             Defaults to 1.
@@ -249,7 +330,24 @@
         query.mlt.boost_terms = boost;
         return this;
       },
-         
+
+      /**
+            Whether input documents should be included in the search results.
+            Defaults to false.
+
+            @member ejs.MoreLikeThisQuery
+            @param {Boolean} include A boolean value
+            @returns {Object} returns <code>this</code> so that calls can be chained.
+            */
+      include: function (include) {
+        if (include == null) {
+          return query.mlt.include;
+        }
+
+        query.mlt.include = include;
+        return this;
+      },
+
       /**
             Should the <code>Query</code> fail when an unsupported field
             is specified. Defaults to true.
